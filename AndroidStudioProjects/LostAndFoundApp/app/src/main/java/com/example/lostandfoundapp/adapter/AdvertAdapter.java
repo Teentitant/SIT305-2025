@@ -55,7 +55,7 @@ public class AdvertAdapter extends ListAdapter<Advert, AdvertAdapter.AdvertViewH
             this.binding = binding;
 
             binding.getRoot().setOnClickListener(v -> {
-                int position = getBindingAdapterPosition(); // Use getBindingAdapterPosition
+                int position = getBindingAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
                     listener.onItemClick(getItem(position));
                 }

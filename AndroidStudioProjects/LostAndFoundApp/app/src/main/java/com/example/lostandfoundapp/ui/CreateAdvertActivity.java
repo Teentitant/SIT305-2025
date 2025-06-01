@@ -6,9 +6,9 @@ import android.widget.Toast;
 import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider; // Import ViewModelProvider
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.lostandfoundapp.R; // Import R
+import com.example.lostandfoundapp.R;
 import com.example.lostandfoundapp.databinding.ActivityCreateAdvertBinding;
 import com.example.lostandfoundapp.model.Advert;
 import com.example.lostandfoundapp.viewmodel.AdvertViewModel;

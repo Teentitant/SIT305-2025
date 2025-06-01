@@ -84,7 +84,7 @@ public class CreateAdvertActivity extends AppCompatActivity {
 
         // Initialize Places SDK
         if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), "AIzaSyAMv7diZo6V9K1OtLEfEckb7WPvLjOmXiQ"); // Use your API key string resource
+            Places.initialize(getApplicationContext(), "AIzaSyAMv7diZo6V9K1OtLEfEckb7WPvLjOmXiQ");
         }
 
 
@@ -142,7 +142,7 @@ public class CreateAdvertActivity extends AppCompatActivity {
                                 binding.editTextLocation.setText(selectedAddress);
                             } else {
                                 binding.editTextLocation.setText("Lat: " + selectedLatitude + ", Lng: " + selectedLongitude);
-                                selectedAddress = "Lat: " + selectedLatitude + ", Lng: " + selectedLongitude; // Store coords if no address
+                                selectedAddress = "Lat: " + selectedLatitude + ", Lng: " + selectedLongitude;
                             }
                         } catch (IOException e) {
                             Log.e(TAG, "Geocoding error", e);
@@ -173,7 +173,7 @@ public class CreateAdvertActivity extends AppCompatActivity {
     private void saveAdvert() {
         String postType;
         int selectedId = binding.radioGroupPostType.getCheckedRadioButtonId();
-        if (selectedId == binding.radioButtonLost.getId()) { // Use binding for IDs
+        if (selectedId == binding.radioButtonLost.getId()) {
             postType = "Lost";
         } else if (selectedId == binding.radioButtonFound.getId()) {
             postType = "Found";
@@ -208,7 +208,6 @@ public class CreateAdvertActivity extends AppCompatActivity {
             return;
         }
         if (selectedLatitude == 0.0 && selectedLongitude == 0.0 && !locationString.contains("Lat:")) {
-            // If lat/lng are default and location string doesn't seem to be a fallback coordinate string
             Toast.makeText(this, "Please select a location using the map or get current location.", Toast.LENGTH_LONG).show();
             return;
         }

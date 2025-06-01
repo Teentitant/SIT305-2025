@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface AdvertDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAdvert(Advert advert); // For suspend use with Kotlin Coroutines, in Java this is blocking or use ListenableFuture/RxJava
+    void insertAdvert(Advert advert);
 
     @Query("SELECT * FROM adverts ORDER BY id DESC")
     LiveData<List<Advert>> getAllAdverts();
@@ -22,5 +22,5 @@ public interface AdvertDao {
     LiveData<Advert> getAdvertById(int advertId);
 
     @Query("DELETE FROM adverts WHERE id = :advertId")
-    void deleteAdvertById(int advertId); // Blocking operation
+    void deleteAdvertById(int advertId);
 }

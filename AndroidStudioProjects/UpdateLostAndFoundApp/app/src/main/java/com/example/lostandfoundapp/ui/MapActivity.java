@@ -50,7 +50,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Observe adverts and add markers
         advertViewModel.getAllAdverts().observe(this, adverts -> {
             if (adverts != null && !adverts.isEmpty()) {
                 mMap.clear(); // Clear previous markers
@@ -67,19 +66,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         }
                     }
                 }
-                // Move camera to the first item or a default location
                 if (firstAdvertLocation != null) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstAdvertLocation, 10f));
                 } else {
-                    // Default location (e.g., your city) if no items or no valid locations
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-37.8136, 144.9631), 10f)); // Melbourne example
                 }
             }
         });
 
-        // Optional: Enable My Location layer if permission granted
-        // if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-        // mMap.setMyLocationEnabled(true);
-        // }
+
     }
 }

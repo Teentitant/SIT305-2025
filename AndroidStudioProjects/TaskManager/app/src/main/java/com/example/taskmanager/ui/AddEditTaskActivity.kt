@@ -20,7 +20,7 @@ class AddEditTaskActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditTaskBinding
     private val taskViewModel: TaskViewModel by viewModels()
     private var currentTaskId: Int? = null
-    private var selectedDueDate: Long = 0L // Store as timestamp
+    private var selectedDueDate: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +28,10 @@ class AddEditTaskActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Add/Edit Task" // Screen for adding/editing tasks [cite: 4]
+        supportActionBar?.title = "Add/Edit Task"
 
         currentTaskId = intent.getIntExtra(EXTRA_TASK_ID, -1)
-            .takeIf { it != -1 } // Only use if valid ID is passed
+            .takeIf { it != -1 }
 
         if (currentTaskId != null) {
             supportActionBar?.title = "Edit Task"
@@ -76,7 +76,7 @@ class AddEditTaskActivity : AppCompatActivity() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000 // Optional: prevent past dates
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
     }
 
@@ -94,32 +94,32 @@ class AddEditTaskActivity : AppCompatActivity() {
         val title = binding.editTextTaskTitle.text.toString().trim()
         val description = binding.editTextTaskDescription.text.toString().trim()
 
-        // Validate user input [cite: 12]
+
         if (TextUtils.isEmpty(title)) {
             binding.editTextTaskTitle.error = "Title is required"
-            Toast.makeText(this, "Title cannot be empty", Toast.LENGTH_SHORT).show() // Informative error message [cite: 13]
+            Toast.makeText(this, "Title cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
         if (selectedDueDate == 0L) {
-            Toast.makeText(this, "Due date is required", Toast.LENGTH_SHORT).show() // Informative error message [cite: 13]
+            Toast.makeText(this, "Due date is required", Toast.LENGTH_SHORT).show()
             return
         }
 
         val taskToSave = Task(
-            id = currentTaskId ?: 0, // Use 0 for new task, Room will autoGenerate
+            id = currentTaskId ?: 0,
             title = title,
-            description = description.takeIf { it.isNotEmpty() }, // Store null if empty
+            description = description.takeIf { it.isNotEmpty() },
             dueDate = selectedDueDate
         )
 
         if (currentTaskId == null) {
-            taskViewModel.insert(taskToSave) // Add new tasks with a title, description, and due date [cite: 5]
+            taskViewModel.insert(taskToSave)
         } else {
-            taskViewModel.update(taskToSave) // Edit existing tasks to update their details [cite: 7]
+            taskViewModel.update(taskToSave)
         }
 
         setResult(Activity.RESULT_OK)
-        finish() // Go back to the previous screen
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {

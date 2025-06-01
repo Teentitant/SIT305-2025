@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private val addEditTaskLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            // Optionally show a confirmation, data is already updated via ViewModel
             Snackbar.make(binding.root, "Task saved", Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -39,23 +38,21 @@ class MainActivity : AppCompatActivity() {
 
         taskViewModel.allTasks.observe(this) { tasks ->
             tasks?.let {
-                taskAdapter.submitList(it) // Displaying a list of all tasks, sorted by due date [cite: 4, 6]
+                taskAdapter.submitList(it)
             }
         }
 
         binding.fabAddTask.setOnClickListener {
             val intent = Intent(this, AddEditTaskActivity::class.java)
-            addEditTaskLauncher.launch(intent) // Navigate to AddEditTaskActivity [cite: 11]
+            addEditTaskLauncher.launch(intent)
         }
     }
 
     private fun setupRecyclerView() {
         taskAdapter = TaskAdapter { task ->
-            // Clicked on a task, open for editing/viewing
             val intent = Intent(this, AddEditTaskActivity::class.java)
             intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, task.id)
-            // Pass other details if needed immediately, or let AddEditTaskActivity fetch them
-            addEditTaskLauncher.launch(intent) // Navigate to AddEditTaskActivity [cite: 11]
+            addEditTaskLauncher.launch(intent)
         }
 
         binding.recyclerViewTasks.apply {
@@ -63,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
 
-        // Swipe to delete functionality
+
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
@@ -72,16 +69,16 @@ class MainActivity : AppCompatActivity() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return false // Not used for drag-and-drop
+                return false
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
                 val taskToDelete = taskAdapter.currentList[position]
-                taskViewModel.delete(taskToDelete) // Deleting tasks [cite: 8]
+                taskViewModel.delete(taskToDelete)
                 Snackbar.make(binding.root, "Task deleted", Snackbar.LENGTH_LONG)
                     .setAction("UNDO") {
-                        taskViewModel.insert(taskToDelete) // Undo delete
+                        taskViewModel.insert(taskToDelete)
                     }.show()
             }
         }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taskmanager.databinding.ItemTaskBinding // Ensure View Binding is enabled in build.gradle
+import com.example.taskmanager.databinding.ItemTaskBinding
 import com.example.taskmanager.model.Task
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -31,7 +31,7 @@ class TaskAdapter(private val onItemClicked: (Task) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             binding.textViewTaskTitle.text = task.title
-            binding.textViewTaskDescription.text = task.description ?: "" // Handle null description
+            binding.textViewTaskDescription.text = task.description ?: ""
             binding.textViewTaskDueDate.text = formatDate(task.dueDate)
         }
 

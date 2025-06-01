@@ -20,9 +20,8 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "task_manager_db" // Name of the SQLite database file
+                    "task_manager_db"
                 )
-                    // In a production app, you'd handle migrations here
                     .build()
                 INSTANCE = instance
                 instance
